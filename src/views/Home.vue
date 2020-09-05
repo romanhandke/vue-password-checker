@@ -78,6 +78,7 @@ export default class Home extends Vue {}
   color: #00aef9;
   font-size: 1.2em;
   font-weight: bolder;
+  outline: none;
   padding: 10px;
   text-transform: uppercase;
   width: 100%;
@@ -90,6 +91,7 @@ export default class Home extends Vue {}
   color: #ffffff;
   font-size: 1.2em;
   margin-top: 20px;
+  outline: none;
   padding: 10px;
   text-transform: uppercase;
   width: 100%;
