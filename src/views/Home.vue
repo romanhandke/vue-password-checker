@@ -47,16 +47,20 @@ export default class Home extends Vue {}
   height: 10vw;
 }
 #upper {
-  background: #ffffff;
-  height: 50vh;
-  position: relative;
-  display: flex;
   align-items: center;
+  background: #ffffff;
+  display: flex;
+  height: 50vh;
   justify-content: center;
+  position: relative;
 }
 #lower {
+  align-items: center;
   background: #00aef9;
+  display: flex;
   height: 50vh;
+  justify-content: center;
+  position: relative;
 }
 .content {
   text-align: center;
@@ -78,6 +82,7 @@ export default class Home extends Vue {}
   color: #00aef9;
   font-size: 1.2em;
   font-weight: bolder;
+  margin: 10px 0;
   outline: none;
   padding: 10px;
   text-transform: uppercase;
@@ -85,12 +90,12 @@ export default class Home extends Vue {}
 }
 .btn-secondary {
   background: #00aef9;
-  border: 2px solid #00aef9;
+  border: 1px solid #ffffff;
   border-radius: 8px;
   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.08);
   color: #ffffff;
   font-size: 1.2em;
-  margin-top: 20px;
+  margin: 10px 0;
   outline: none;
   padding: 10px;
   text-transform: uppercase;
