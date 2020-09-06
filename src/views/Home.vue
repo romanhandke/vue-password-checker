@@ -45,7 +45,7 @@ export default class Home extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 #line {
   position: absolute;
   bottom: -1px;
