@@ -24,7 +24,9 @@
     <section id="lower">
       <div class="content">
         <button class="btn-primary">make sure</button>
-        <button class="btn-secondary">how it works</button>
+        <button class="btn-secondary" @click="redirect('about')">
+          how it works
+        </button>
       </div>
     </section>
   </div>
@@ -36,7 +38,11 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {}
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  redirect(route: string) {
+    this.$router.push(route);
+  }
+}
 </script>
 
 <style>
