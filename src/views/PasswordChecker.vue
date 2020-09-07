@@ -21,11 +21,42 @@
           @click="checkPassword()"
         />
       </form>
-      <div class="password-not-leaked" v-if="!passwordLeaked && !showPrompt">
-        <h1>NOT LEAKED</h1>
+      <div
+        class="password-not-leaked"
+        v-if="!passwordLeaked && !showPrompt && !loading"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          class="okay"
+        >
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"
+            fill="#51ec51"
+          />
+        </svg>
       </div>
-      <div class="password-leaked" v-if="passwordLeaked && !showPrompt">
-        <h1>LEAKED</h1>
+      <div
+        class="password-leaked"
+        v-if="passwordLeaked && !showPrompt && !loading"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          class="warning"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
+            fill="#f43838"
+          />
+        </svg>
+        <p>Please change your password</p>
       </div>
     </div>
     <Footer />
@@ -55,7 +86,7 @@ export default class PasswordChecker extends Vue {
     this.showPrompt = false;
     setTimeout(() => {
       this.loading = false;
-      this.passwordLeaked = true;
+      this.passwordLeaked = false;
     }, 3000);
   }
 }
@@ -109,5 +140,18 @@ form {
   overflow: hidden;
   padding: 0;
   position: absolute;
+}
+.password-leaked,
+.password-not-leaked {
+  text-align: center;
+}
+.warning,
+.okay {
+  width: 120px;
+  height: 120px;
+}
+p {
+  font-size: 1.2em;
+  color: #f43838;
 }
 </style>
