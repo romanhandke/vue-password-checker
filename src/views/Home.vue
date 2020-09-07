@@ -23,7 +23,9 @@
     </section>
     <section id="lower">
       <div class="content">
-        <button class="btn-primary">make sure</button>
+        <button class="btn-primary" @click="redirect('check')">
+          make sure
+        </button>
         <button class="btn-secondary" @click="redirect('about')">
           how it works
         </button>

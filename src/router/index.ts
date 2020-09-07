@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/check",
-    name: "check",
+    name: "Check",
     component: () => import("../views/PasswordChecker.vue")
   }
 ];
