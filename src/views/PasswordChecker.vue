@@ -13,6 +13,7 @@
           class="input"
           placeholder="Enter your password"
           tabindex="1"
+          v-model="password"
         />
         <input
           type="button"
@@ -63,11 +64,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+import CryptoJs from "crypto-js";
 
 @Component({
   components: {
@@ -80,6 +82,8 @@ export default class PasswordChecker extends Vue {
   loading = false;
   passwordLeaked = false;
   showPrompt = true;
+  password = "";
+  apiUri = "https://api.pwnedpasswords.com/range/";
 
   checkPassword() {
     this.loading = true;
@@ -87,7 +91,16 @@ export default class PasswordChecker extends Vue {
     setTimeout(() => {
       this.loading = false;
       this.passwordLeaked = false;
-    }, 3000);
+    }, 1000);
+
+    const hashedPassword = this.hashPassword(this.password);
+    const firstFive = hashedPassword.substring(0, 5);
+    const rest = hashedPassword.substring(5, hashedPassword.length);
+    console.log(firstFive, rest);
+  }
+
+  hashPassword(password: string) {
+    return CryptoJs.SHA1(password).toString(CryptoJs.enc.Hex);
   }
 }
 </script>
