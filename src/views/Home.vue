@@ -109,4 +109,15 @@ export default class Home extends Vue {
   text-transform: uppercase;
   width: 100%;
 }
+@media (min-width: 450px) {
+  .home {
+    height: 100%;
+  }
+  #upper {
+    height: 50%;
+  }
+  #lower {
+    height: 50%;
+  }
+}
 </style>

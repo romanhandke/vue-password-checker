@@ -180,4 +180,18 @@ p {
   font-size: 1.2em;
   color: #f43838;
 }
+@media (min-width: 450px) {
+  .password-checker {
+    height: 100%;
+  }
+  .header {
+    height: 10%;
+  }
+  .content {
+    height: 40%;
+  }
+  .footer {
+    height: 50%;
+  }
+}
 </style>

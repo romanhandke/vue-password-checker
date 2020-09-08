@@ -10,4 +10,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+@media (min-width: 450px) {
+  #app {
+    border: 2px solid #00aef9;
+    border-radius: 8px;
+    height: 900px;
+    margin: auto;
+    margin-top: 10px;
+    max-width: 450px;
+  }
+}
 </style>
