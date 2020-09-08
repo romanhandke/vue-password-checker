@@ -5,7 +5,7 @@
       <div class="loading" v-if="loading">
         <LoadingSpinner />
       </div>
-      <form v-if="showPrompt">
+      <form v-if="showPrompt" @submit.prevent="onSubmit()">
         <label for="password" class="sr-only">Enter your password</label>
         <input
           name="password"
@@ -15,12 +15,7 @@
           tabindex="1"
           v-model="password"
         />
-        <input
-          type="button"
-          value="check password"
-          class="button"
-          @click="checkPassword()"
-        />
+        <input type="submit" value="check password" class="button" />
       </form>
       <div
         class="password-not-leaked"
@@ -70,6 +65,7 @@ import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
 import CryptoJs from "crypto-js";
+import axios from "axios";
 
 @Component({
   components: {
@@ -85,22 +81,39 @@ export default class PasswordChecker extends Vue {
   password = "";
   apiUri = "https://api.pwnedpasswords.com/range/";
 
-  checkPassword() {
+  onSubmit() {
+    if (this.password.length === 0) {
+      return;
+    }
+
     this.loading = true;
     this.showPrompt = false;
-    setTimeout(() => {
-      this.loading = false;
-      this.passwordLeaked = false;
-    }, 1000);
 
     const hashedPassword = this.hashPassword(this.password);
     const firstFive = hashedPassword.substring(0, 5);
-    const rest = hashedPassword.substring(5, hashedPassword.length);
-    console.log(firstFive, rest);
+    const tail = hashedPassword.substring(5, hashedPassword.length);
+
+    axios
+      .get(this.apiUri + firstFive)
+      .then(response => {
+        this.loading = false;
+        this.passwordLeaked = this.hasPasswordBeenLeaked(response.data, tail);
+      })
+      .catch(error => console.log(error));
   }
 
   hashPassword(password: string) {
     return CryptoJs.SHA1(password).toString(CryptoJs.enc.Hex);
+  }
+
+  hasPasswordBeenLeaked(response: string, tail: string) {
+    const lines = response.split("\n");
+    const hashes: string[] = [];
+    lines.forEach(line => {
+      hashes.push(line.split(":")[0]);
+    });
+
+    return hashes.includes(tail.toUpperCase());
   }
 }
 </script>
