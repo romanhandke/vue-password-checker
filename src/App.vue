@@ -13,7 +13,7 @@
 @media (min-width: 450px) {
   #app {
     border: 2px solid #00aef9;
-    border-radius: 8px;
+    border-radius: 4px;
     height: 900px;
     margin: auto;
     margin-top: 10px;
