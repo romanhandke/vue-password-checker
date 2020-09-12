@@ -6,6 +6,7 @@
       width="24"
       viewBox="0 0 24 24"
       class="logo-small"
+      @click="redirect('/')"
     >
       <path d="M0 0h24v24H0z" fill="none" />
       <path
@@ -32,16 +33,19 @@ export default class Header extends Vue {
 
 <style scoped>
 .logo-small {
-  width: 48px;
+  cursor: pointer;
   height: 48px;
+  width: 48px;
 }
 .title {
   color: #00aef9;
+  cursor: pointer;
 }
 .header {
-  height: 10vh;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  height: 10vh;
+  justify-content: center;
 }
 </style>

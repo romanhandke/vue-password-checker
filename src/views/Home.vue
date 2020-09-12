@@ -23,12 +23,8 @@
     </section>
     <section id="lower">
       <div class="content">
-        <button class="btn-primary" @click="redirect('check')">
-          make sure
-        </button>
-        <button class="btn-secondary" @click="redirect('about')">
-          how it works
-        </button>
+        <Button text="make sure" route="/check" classList="primary" />
+        <Button text="how it works" route="/about" classList="secondary" />
       </div>
     </section>
   </div>
@@ -36,9 +32,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import Button from "../components/Button.vue";
 
 @Component({
-  components: {}
+  components: {
+    Button
+  }
 })
 export default class Home extends Vue {
   redirect(route: string) {
@@ -81,33 +80,6 @@ export default class Home extends Vue {
   color: #00aef9;
   margin-top: 20px;
   text-transform: uppercase;
-}
-.btn-primary {
-  background: #ffffff;
-  border: 2px solid #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.08);
-  color: #00aef9;
-  font-size: 1.2em;
-  font-weight: bolder;
-  margin: 10px 0;
-  outline: none;
-  padding: 10px;
-  text-transform: uppercase;
-  width: 100%;
-}
-.btn-secondary {
-  background: #00aef9;
-  border: 1px solid #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.08);
-  color: #ffffff;
-  font-size: 1.2em;
-  margin: 10px 0;
-  outline: none;
-  padding: 10px;
-  text-transform: uppercase;
-  width: 100%;
 }
 @media (min-width: 450px) {
   .home {

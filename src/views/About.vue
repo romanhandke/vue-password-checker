@@ -38,6 +38,7 @@
             </li>
           </ol>
         </div>
+        <Button text="check password" classList="secondary" route="/check" />
       </div>
     </div>
   </div>
@@ -46,10 +47,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Header from "../components/Header.vue";
+import Button from "../components/Button.vue";
 
 @Component({
   components: {
-    Header
+    Header,
+    Button
   }
 })
 export default class About extends Vue {
@@ -62,15 +65,10 @@ export default class About extends Vue {
 </script>
 
 <style scoped>
-.content-wrapper {
-  background-color: #ededed;
-  height: 90vh;
-}
 .content {
   font-size: 1.1em;
   height: 100%;
   margin: auto;
-  padding-top: 20px;
   width: 90%;
 }
 h3 {
@@ -91,5 +89,8 @@ ol {
 .text-wrapper {
   margin-top: 30px;
   line-height: 1.5em;
+}
+.secondary {
+  margin-top: 20px;
 }
 </style>

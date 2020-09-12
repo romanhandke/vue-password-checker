@@ -10,6 +10,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #ededed;
+}
 @media (min-width: 450px) {
   #app {
     border: 2px solid #00aef9;
