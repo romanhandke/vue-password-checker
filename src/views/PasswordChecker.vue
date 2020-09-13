@@ -11,9 +11,11 @@
           name="password"
           type="password"
           class="input"
-          placeholder="Enter your password"
+          :placeholder="getPlaceholder()"
           tabindex="1"
           v-model="password"
+          @focus="togglePlaceholder()"
+          @blur="togglePlaceholder()"
         />
         <input type="submit" value="check password" class="button" />
       </form>
@@ -65,7 +67,7 @@ import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
 import CryptoJs from "crypto-js";
-import axios from "axios";
+import PasswordChecker from "@rhandke/password-checker";
 
 @Component({
   components: {
@@ -74,14 +76,20 @@ import axios from "axios";
     LoadingSpinner
   }
 })
-export default class PasswordChecker extends Vue {
+export default class Checker extends Vue {
   loading = false;
   passwordLeaked = false;
   showPrompt = true;
   password = "";
   apiUri = "https://api.pwnedpasswords.com/range/";
+  placeholder = "Enter your password";
+  passwordChecker: PasswordChecker | null = null;
 
-  onSubmit() {
+  public created() {
+    this.passwordChecker = new PasswordChecker();
+  }
+
+  public onSubmit() {
     if (this.password.length === 0) {
       return;
     }
@@ -89,24 +97,31 @@ export default class PasswordChecker extends Vue {
     this.loading = true;
     this.showPrompt = false;
 
-    const hashedPassword = this.hashPassword(this.password);
-    const firstFive = hashedPassword.substring(0, 5);
-    const tail = hashedPassword.substring(5, hashedPassword.length);
-
-    axios
-      .get(this.apiUri + firstFive)
-      .then(response => {
+    if (this.passwordChecker !== null) {
+      this.passwordChecker.hasBeenLeaked(this.password).then(response => {
         this.loading = false;
-        this.passwordLeaked = this.hasPasswordBeenLeaked(response.data, tail);
-      })
-      .catch(error => console.log(error));
+        this.passwordLeaked = response;
+      });
+    }
   }
 
-  hashPassword(password: string) {
+  protected getPlaceholder(): string {
+    return this.placeholder;
+  }
+
+  protected togglePlaceholder(): void {
+    if (this.placeholder.length > 0) {
+      this.placeholder = "";
+    } else {
+      this.placeholder = "Enter your password";
+    }
+  }
+
+  protected hashPassword(password: string) {
     return CryptoJs.SHA1(password).toString(CryptoJs.enc.Hex);
   }
 
-  hasPasswordBeenLeaked(response: string, tail: string) {
+  protected hasPasswordBeenLeaked(response: string, tail: string) {
     const lines = response.split("\n");
     const hashes: string[] = [];
     lines.forEach(line => {
@@ -134,7 +149,6 @@ form {
   border: 2px solid #00aef9;
   border-radius: 8px;
   color: #00aef9;
-  cursor: none;
   outline: none;
   padding: 10px;
   text-align: center;

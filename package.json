@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@rhandke/password-checker": "0.0.2",
     "@types/crypto-js": "^3.1.47",
     "@types/node": "^14.6.4",
     "axios": "^0.20.0",
