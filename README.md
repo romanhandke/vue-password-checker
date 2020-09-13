@@ -1,5 +1,7 @@
 # password-checker
 
+Vuejs app to check passwords against the haveibeenpwned API.
+
 ## Project setup
 ```
 npm install
